@@ -31,3 +31,21 @@ Procedemos a escribir el script del ataque, por ejemplo:
 Con este ataque podemos visualizar con wireshark como las tramas eapol van trabajando hasta tener los mensajes 4 cifrados y sin cifrar y obtener el keystream. Se recomienda activar todas las interfaces de wireshark.
 
 También sirve para la instalación de clave todo en cero.
+
+Para la configuración de las tablas de ruteo para salida del internet se escribe el siguiente script:
+
+iptables -F
+iptables -t nat -F
+iptables -A FORWARD -i wlan1 -o eth0 -j ACCEPT
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUEREDE
+
+Para incrementar la potencia de las tajetas inalámbricas escribimos el siguiente script:
+
+sudo iw reg set GY
+sudo ip link set wlan1 down
+sudo iw dev wlan1 set txpower fixed 30mBm
+sudo ip link set wlan1 up
+sudo iw dev
+
+
+
